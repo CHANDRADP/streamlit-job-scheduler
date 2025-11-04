@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "streamlit-job-scheduler"
+version = "0.1.0"
+description = "A Streamlit-based job scheduler with one-time and cron scheduling support"
+authors = [
+  { name="Your Name", email="you@example.com" }
+]
+readme = "README.md"
+license = { text = "MIT" }
+keywords = ["streamlit", "scheduler", "cron", "ui"]
+requires-python = ">=3.8"
+dependencies = [
+  "streamlit>=1.25.0"
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Programming Language :: Python :: 3",
+    "Framework :: Streamlit",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent"
+]
+
+[tool.pytest.ini_options]
+addopts = "-v"
+testpaths = ["streamlit_job_scheduler/tests"]
