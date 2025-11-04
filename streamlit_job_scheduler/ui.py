@@ -60,7 +60,7 @@ def job_scheduler(callback_func, config: SchedulerConfig = None) -> ScheduleInfo
           is displayed using describe_cron(...).
         - Custom allows entering an arbitrary cron expression string which is passed to
           generate_cron_expr(frequency="Custom", custom_expr=...).
-    - If config.schedule is provided it is parsed into config.pre_config by parse_cron_to_preconfig
+    - If config.schedule is provided it is parsed into pre_config by parse_cron_to_preconfig
       and used to set initial widget selections.
     Side effects
     ------------
@@ -88,7 +88,7 @@ def job_scheduler(callback_func, config: SchedulerConfig = None) -> ScheduleInfo
     """
     
     config = config or SchedulerConfig()
-    config.pre_config = parse_cron_to_preconfig(config.schedule) if config.schedule else {}
+    pre_config = parse_cron_to_preconfig(config.schedule) if config.schedule else {}
     st.title(config.title)
     if config.display_only:
         schedule_type = config.display_only.value
@@ -97,7 +97,7 @@ def job_scheduler(callback_func, config: SchedulerConfig = None) -> ScheduleInfo
                              index=0 if config.schedule_type == ScheduleType.ONE_TIME.value else 1)
 
     job_data = {}
-
+    print(schedule_type)
     if schedule_type == ScheduleType.ONE_TIME.value:
         if config.show_schedule_type:
             st.subheader("📅 One-Time Schedule")
@@ -120,7 +120,7 @@ def job_scheduler(callback_func, config: SchedulerConfig = None) -> ScheduleInfo
             "Select Frequency",
             ["Every X minutes", "Hourly", "Daily", "Weekly", "Monthly", "Custom"],
             index=["Every X minutes", "Hourly", "Daily", "Weekly", "Monthly", "Custom"].index(
-                config.pre_config.get("frequency", "Daily")
+                pre_config.get("frequency", "Daily")
             )
         )
 

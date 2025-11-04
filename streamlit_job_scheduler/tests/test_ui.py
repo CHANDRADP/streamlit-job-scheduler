@@ -1,6 +1,7 @@
 # streamlit_job_scheduler/tests/test_ui.py
 import pytest
-from ..scheduler import SchedulerConfig
+from streamlit_job_scheduler.models import SchedulerConfig, ScheduleInfo
+from streamlit_job_scheduler.enums import ScheduleType
 
 def import_scheduler_ui():
     from streamlit_job_scheduler.ui import job_scheduler
@@ -8,27 +9,24 @@ def import_scheduler_ui():
 
 def test_ui_runs_cron_job(monkeypatch):
     """Smoke test: ensure the cron UI runs and returns a valid result without errors."""
-    config = SchedulerConfig(schedule_type="cron", pre_config={"frequency": "Daily"})
+    config = SchedulerConfig(schedule_type=ScheduleType.CRONJOB, schedule="* * * * *")
     result = import_scheduler_ui()(config)
-    assert isinstance(result, dict)
-    assert "type" in result
-    assert result["type"] == "cron"
+    assert isinstance(result, ScheduleInfo)
+    assert result.schedule is not None
 
 
 def test_ui_runs_one_time(monkeypatch):
     """Smoke test: ensure one-time UI runs and returns expected structure."""
-    config = SchedulerConfig(schedule_type="one-time")
+    config = SchedulerConfig(schedule_type=ScheduleType.ONE_TIME, schedule="2024-12-31T23:59:00")
+    print(config.schedule_type)
     result = import_scheduler_ui()(config)
-    assert isinstance(result, dict)
-    assert result["type"] == "one-time"
-    # should contain date/time fields
-    assert "schedule_time" in result
-    assert result["schedule_time"] is not None
+    assert isinstance(result, ScheduleInfo)
+    assert result.schedule is not None
 
 
 def test_ui_invalid_config(monkeypatch):
     """Ensure invalid or empty config does not crash the UI."""
     config = SchedulerConfig(schedule_type=None)
     result = import_scheduler_ui()(config)
-    assert isinstance(result, dict)
-    assert "type" in result
+    assert isinstance(result, ScheduleInfo)
+    assert result.schedule_type
