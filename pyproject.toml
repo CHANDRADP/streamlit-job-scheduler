@@ -7,7 +7,7 @@ name = "streamlit-job-scheduler"
 version = "0.1.0"
 description = "A Streamlit-based job scheduler with one-time and cron scheduling support"
 authors = [
-  { name="Your Name", email="you@example.com" }
+  { name="Chandra D P", email="chandrasuvarna102@gmail.com" }
 ]
 readme = "README.md"
 license = { text = "MIT" }

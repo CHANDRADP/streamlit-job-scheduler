@@ -97,7 +97,6 @@ def job_scheduler(callback_func, config: SchedulerConfig = None) -> ScheduleInfo
                              index=0 if config.schedule_type == ScheduleType.ONE_TIME.value else 1)
 
     job_data = {}
-    print(schedule_type)
     if schedule_type == ScheduleType.ONE_TIME.value:
         if config.show_schedule_type:
             st.subheader("📅 One-Time Schedule")
@@ -176,4 +175,4 @@ def job_scheduler(callback_func, config: SchedulerConfig = None) -> ScheduleInfo
         return job_data
 
 if __name__ == "__main__":
-    job_scheduler()
+    job_scheduler(None)
