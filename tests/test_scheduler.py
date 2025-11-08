@@ -1,5 +1,5 @@
 import pytest
-from ..scheduler import (
+from streamlit_job_scheduler.scheduler import (
     generate_cron_expr,
     describe_cron,
 )
